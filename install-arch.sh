@@ -91,7 +91,7 @@ systemctl enable systemd-resolved
 
 # 3.6 Initramfs
 info "Generating initramfs..."
-sed -i "/^HOOKS=/s/filesystems/encrypt filesystems/" /etc/mkinitcpio.conf
+sed -i -e "s/^MODULES=()/MODULES=(usbhid xhci_hcd)/" -e "/^HOOKS=/s/filesystems/encrypt filesystems/" /etc/mkinitcpio.conf
 mkinitcpio -P
 
 # 3.7 Root password

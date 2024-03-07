@@ -43,12 +43,15 @@ PARTUUID="$(lsblk -no PARTUUID /dev/sda2)"
 
 # 2.1 Select the mirrors
 info "Selecting mirrors..."
-reflector --country "United Kingdom" --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+reflector --country "United Kingdom" --protocol https --sort rate \
+  --save /etc/pacman.d/mirrorlist
 
 # 2.2 Install essential packages
 info "Installing essential packages..."
-sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" /etc/pacman.conf
-pacstrap -KP /mnt base linux linux-lts linux-firmware intel-ucode efibootmgr sudo man-db man-pages iwd terminus-font zram-generator vi
+sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
+  /etc/pacman.conf
+pacstrap -KP /mnt base linux linux-lts linux-firmware intel-ucode efibootmgr \
+  sudo man-db man-pages iwd terminus-font zram-generator vi
 
 # 3.1 Fstab
 info "Generating fstab..."
@@ -91,7 +94,8 @@ systemctl enable systemd-resolved
 
 # 3.6 Initramfs
 info "Generating initramfs..."
-sed -i -e "s/^MODULES=()/MODULES=(usbhid xhci_hcd)/" -e "/^HOOKS=/s/filesystems/encrypt filesystems/" /etc/mkinitcpio.conf
+sed -i -e "s/^MODULES=()/MODULES=(usbhid xhci_hcd)/" \
+  -e "/^HOOKS=/s/filesystems/encrypt filesystems/" /etc/mkinitcpio.conf
 mkinitcpio -P
 
 # 3.7 Root password

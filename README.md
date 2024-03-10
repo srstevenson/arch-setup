@@ -1,15 +1,25 @@
 # arch-setup
 
-## `install-arch.sh`
+This repository provides scripts for installing and setting up Arch Linux
+systems.
 
-`install-arch.sh` performs an automated installation of Arch Linux with an
-encrypted ext4 root partition, systemd-boot as the boot loader, periodic file
-system TRIM, and swap on zram.
+## Scripts
+
+The following scripts are provided and should be run in the order listed.
+
+- `install-arch.sh` performs an automated installation of Arch Linux with an
+  encrypted ext4 root partition, systemd-boot as the bootloader, periodic file
+  system TRIM, and swap on zram.
+- `setup-base.sh` configures a base system, such as one installed with
+  `install-arch.sh`, for server or desktop use. It configures pacman and
+  installs ufw to manage the netfilter firewall.
+- `setup-devel.sh` installs development tools such as editors, compilers,
+  formatters, and linters.
 
 ## pre-commit hooks
 
 [pre-commit] is used to run formatters and linters before committing changes.
-Install pre-commit and dependencies with `pacman -Syu pre-commit shfmt` and
-install the pre-commit hooks with `pre-commit install`.
+Install pre-commit and dependencies with `pacman -Syu pre-commit shfmt` and add
+the pre-commit hooks to your local repository with `pre-commit install`.
 
 [pre-commit]: https://pre-commit.com/

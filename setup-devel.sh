@@ -31,3 +31,11 @@ pacman -Syu --noconfirm --needed lua-language-server stylua
 
 info "Installing Python development tools..."
 pacman -Syu --noconfirm --needed pyright ruff ruff-lsp
+
+info "Installing Rust development tools..."
+if [[ ! -d /home/scott/.rustup ]]; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o /tmp/rustup.sh
+  sudo -u scott bash /tmp/rustup.sh -q -y --no-modify-path
+  rm /tmp/rustup.sh
+fi
+sudo -u scott /home/scott/.cargo/bin/rustup component add rust-analyzer

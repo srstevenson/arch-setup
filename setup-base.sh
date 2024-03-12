@@ -28,3 +28,7 @@ systemctl enable --now ufw
 
 info "Installing man pages..."
 pacman -Syu --noconfirm --needed man-db man-pages
+
+info "Setting login shell..."
+pacman -Syu --noconfirm --needed fish
+chsh -s /usr/bin/fish scott

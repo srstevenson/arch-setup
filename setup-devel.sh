@@ -15,9 +15,6 @@ if [[ "$EUID" -ne 0 ]]; then
   exit 1 # EPERM
 fi
 
-info "Installing man pages..."
-pacman -Syu --noconfirm --needed man-db man-pages
-
 info "Installing development tools..."
 pacman -Syu --noconfirm --needed bat fd git helix pre-commit neovim ripgrep \
   taplo-cli tmux zellij

@@ -25,3 +25,6 @@ ufw default deny
 ufw limit ssh
 ufw --force enable
 systemctl enable --now ufw
+
+info "Installing man pages..."
+pacman -Syu --noconfirm --needed man-db man-pages

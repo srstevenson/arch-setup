@@ -17,7 +17,7 @@ fi
 
 info "Installing development tools..."
 pacman -Syu --noconfirm --needed bat fd git helix pre-commit neovim ripgrep \
-  taplo-cli tmux zellij
+  starship taplo-cli tmux zellij
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing shell development tools..."

@@ -16,8 +16,8 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 info "Installing development tools..."
-pacman -Syu --noconfirm --needed bat fd git helix pre-commit neovim ripgrep \
-  starship taplo-cli tmux zellij
+pacman -Syu --noconfirm --needed bat fd git git-absorb helix pre-commit \
+  neovim ripgrep starship taplo-cli tmux zellij
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing shell development tools..."

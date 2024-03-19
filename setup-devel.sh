@@ -12,7 +12,7 @@ error() {
 
 if [[ "$EUID" -ne 0 ]]; then
   error "script must be run as root"
-  exit 1 # EPERM
+  exit 77 # EX_NOPERM
 fi
 
 info "Installing development tools..."

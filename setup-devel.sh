@@ -26,6 +26,9 @@ pacman -Syu --noconfirm --needed mdformat
 info "Installing TOML tools..."
 pacman -Syu --noconfirm --needed taplo-cli
 
+info "Installing YAML tools..."
+pacman -Syu --noconfirm --needed prettier
+
 info "Installing shell development tools..."
 pacman -Syu --noconfirm --needed bash-language-server shellcheck shfmt
 

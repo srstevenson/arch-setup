@@ -44,4 +44,6 @@ if [[ ! -d /home/scott/.rustup ]]; then
   sudo -u scott bash /tmp/rustup.sh -q -y --no-modify-path
   rm /tmp/rustup.sh
 fi
-sudo -u scott /home/scott/.cargo/bin/rustup component add rust-analyzer
+if [[ ! -f /home/scott/.cargo/bin/rust-analyzer ]]; then
+  sudo -u scott /home/scott/.cargo/bin/rustup component add rust-analyzer
+fi

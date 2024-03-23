@@ -17,11 +17,14 @@ fi
 
 info "Installing development tools..."
 pacman -Syu --noconfirm --needed bat difftastic fd git git-absorb helix \
-  pre-commit neovim ripgrep starship taplo-cli tmux zellij
+  pre-commit neovim ripgrep starship tmux zellij
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing Markdown tools..."
 pacman -Syu --noconfirm --needed mdformat
+
+info "Installing TOML tools..."
+pacman -Syu --noconfirm --needed taplo-cli
 
 info "Installing shell development tools..."
 pacman -Syu --noconfirm --needed bash-language-server shellcheck shfmt

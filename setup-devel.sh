@@ -47,3 +47,4 @@ fi
 if [[ ! -f /home/scott/.cargo/bin/rust-analyzer ]]; then
   sudo -u scott /home/scott/.cargo/bin/rustup component add rust-analyzer
 fi
+sudo -u scott /home/scott/.cargo/bin/rustup update

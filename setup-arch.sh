@@ -15,6 +15,24 @@ if [[ "$EUID" -ne 0 ]]; then
   exit 77 # EX_NOPERM
 fi
 
+info "Configuring pacman..."
+sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
+  /etc/pacman.conf
+
+info "Installing ufw..."
+pacman -Syu --noconfirm --needed ufw
+ufw default deny
+ufw limit ssh
+ufw --force enable
+systemctl enable --now ufw
+
+info "Installing man pages..."
+pacman -Syu --noconfirm --needed man-db man-pages
+
+info "Setting login shell..."
+pacman -Syu --noconfirm --needed fish
+chsh -s /usr/bin/fish scott
+
 info "Installing development tools..."
 pacman -Syu --noconfirm --needed bat fd git git-absorb helix pre-commit \
   neovim ripgrep starship zellij

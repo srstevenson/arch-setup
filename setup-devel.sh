@@ -20,6 +20,14 @@ pacman -Syu --noconfirm --needed bat fd git git-absorb helix pre-commit \
   neovim ripgrep starship zellij
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
+info "Installing jump..."
+if [[ ! -f /home/scott/.local/bin/jump ]]; then
+  sudo -u scott mkdir -p /home/scott/.local/bin
+  sudo -u scott curl -Lo /home/scott/.local/bin/jump \
+    https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_linux_amd64_binary
+  sudo -u scott chmod +x /home/scott/.local/bin/jump
+fi
+
 info "Installing Markdown tools..."
 pacman -Syu --noconfirm --needed mdformat
 

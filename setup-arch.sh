@@ -34,7 +34,7 @@ pacman -Syu --noconfirm --needed fish
 chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
-pacman -Syu --noconfirm --needed bat fd git git-absorb helix pre-commit \
+pacman -Syu --noconfirm --needed bat fd fzy git git-absorb helix pre-commit \
   neovim ripgrep starship zellij
 ln -fs /usr/bin/helix /usr/local/bin/hx
 

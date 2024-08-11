@@ -34,8 +34,8 @@ pacman -Syu --noconfirm --needed fish
 chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
-pacman -Syu --noconfirm --needed bat fd fzy git git-absorb helix pre-commit \
-  neovim ripgrep starship zellij
+pacman -Syu --noconfirm --needed age fd fzy git git-absorb git-delta \
+  helix pre-commit ripgrep starship tmux
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing jump..."
@@ -46,9 +46,6 @@ if [[ ! -f /home/scott/.local/bin/jump ]]; then
   sudo -u scott chmod +x /home/scott/.local/bin/jump
 fi
 
-info "Installing Markdown tools..."
-pacman -Syu --noconfirm --needed mdformat
-
 info "Installing TOML tools..."
 pacman -Syu --noconfirm --needed taplo-cli
 
@@ -57,9 +54,6 @@ pacman -Syu --noconfirm --needed prettier
 
 info "Installing shell development tools..."
 pacman -Syu --noconfirm --needed bash-language-server shellcheck shfmt
-
-info "Installing Lua development tools..."
-pacman -Syu --noconfirm --needed lua-language-server stylua
 
 info "Installing Python development tools..."
 pacman -Syu --noconfirm --needed pyright ruff ruff-lsp

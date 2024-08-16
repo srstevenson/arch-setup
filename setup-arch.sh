@@ -56,7 +56,7 @@ info "Installing shell development tools..."
 pacman -Syu --noconfirm --needed bash-language-server shellcheck shfmt
 
 info "Installing Python development tools..."
-pacman -Syu --noconfirm --needed pyright ruff ruff-lsp
+pacman -Syu --noconfirm --needed pyright ruff
 
 info "Installing Rust development tools..."
 pacman -Syu --noconfirm --needed rustup

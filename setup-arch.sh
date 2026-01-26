@@ -19,6 +19,11 @@ info "Configuring pacman..."
 sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
   /etc/pacman.conf
 
+info "Selecting mirrors..."
+pacman -Syu --noconfirm --needed reflector
+reflector --country "United Kingdom" --protocol https --sort rate \
+  --save /etc/pacman.d/mirrorlist
+
 info "Installing ufw..."
 pacman -Syu --noconfirm --needed ufw
 ufw default deny

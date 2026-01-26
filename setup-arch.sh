@@ -35,7 +35,7 @@ chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
 pacman -Syu --noconfirm --needed age fd fzy git git-absorb git-delta \
-  helix pre-commit ripgrep starship tmux
+  helix ripgrep starship tmux
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing jump..."

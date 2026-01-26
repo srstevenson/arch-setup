@@ -39,8 +39,8 @@ pacman -Syu --noconfirm --needed fish
 chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
-pacman -Syu --noconfirm --needed age fd fzy git git-absorb git-delta \
-  helix ripgrep starship tmux
+pacman -Syu --noconfirm --needed age difftastic fd fzy git helix jujutsu \
+  ripgrep starship tmux
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing jump..."

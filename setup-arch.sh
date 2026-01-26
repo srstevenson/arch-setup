@@ -40,7 +40,7 @@ chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
 pacman -Syu --noconfirm --needed age difftastic fd fzy git helix jujutsu \
-  ripgrep starship tmux
+  neovim ripgrep starship tmux
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing TOML tools..."

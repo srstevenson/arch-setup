@@ -50,8 +50,8 @@ reflector --country "United Kingdom" --protocol https --sort rate \
 info "Installing essential packages..."
 sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
   /etc/pacman.conf
-pacstrap -KP /mnt base linux linux-lts linux-firmware intel-ucode efibootmgr \
-  sudo man-db man-pages iwd terminus-font zram-generator vi
+pacstrap -KP /mnt base linux linux-lts linux-firmware amd-ucode intel-ucode \
+  efibootmgr sudo man-db man-pages iwd terminus-font zram-generator vi
 
 # 3.1 Fstab
 info "Generating fstab..."

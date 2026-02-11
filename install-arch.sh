@@ -10,6 +10,15 @@ set -euo pipefail
 
 read -rp "Passphrase: " PASSPHRASE
 read -rp "Hostname: " HOSTNAME
+read -rp "Disk (e.g. /dev/sda or /dev/nvme0n1): " DISK
+
+if [[ "$DISK" == "/dev/nvme"* ]]; then
+  EFI_PART="${DISK}p1"
+  ROOT_PART="${DISK}p2"
+else
+  EFI_PART="${DISK}1"
+  ROOT_PART="${DISK}2"
+fi
 
 info() {
   echo -e "\033[1;34m::\033[0m \033[1;37m$*\033[0m"
@@ -21,25 +30,25 @@ timedatectl set-ntp true
 
 # 1.9 Partition the disks
 info "Partitioning disks..."
-sfdisk /dev/sda <<EOF
+sfdisk "$DISK" <<EOF
 label: gpt
-/dev/sda1: size=1GiB, type=uefi
-/dev/sda2: type=linux
+$EFI_PART: size=1GiB, type=uefi
+$ROOT_PART: type=linux
 EOF
 
 # 1.10 Format the partitions
 info "Formatting partitions..."
-mkfs.fat -F 32 /dev/sda1
-echo -n "$PASSPHRASE" | cryptsetup luksFormat /dev/sda2 -
-echo -n "$PASSPHRASE" | cryptsetup open /dev/sda2 root --key-file -
+mkfs.fat -F 32 "$EFI_PART"
+echo -n "$PASSPHRASE" | cryptsetup luksFormat "$ROOT_PART" -
+echo -n "$PASSPHRASE" | cryptsetup open "$ROOT_PART" root --key-file -
 mkfs.ext4 /dev/mapper/root
 
 # 1.11 Mount the file systems
 info "Mounting file systems..."
 mount /dev/mapper/root /mnt
-mount --mkdir /dev/sda1 /mnt/boot
+mount --mkdir "$EFI_PART" /mnt/boot
 
-PARTUUID="$(lsblk -no PARTUUID /dev/sda2)"
+PARTUUID="$(lsblk -no PARTUUID "$ROOT_PART")"
 CPU_VENDOR="$(awk -F: '/vendor_id/{gsub(/^[[:space:]]+/, "", $2); print $2; exit}' /proc/cpuinfo)"
 
 case "$CPU_VENDOR" in

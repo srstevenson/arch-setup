@@ -72,7 +72,7 @@ systemctl enable systemd-timesyncd
 
 # 3.4 Localisation
 info "Configuring locale..."
-sed -i "s/^#en_GB.UTF-8/en_GB.UTF_8/" /etc/locale.gen
+sed -Ei "s/^#(en_GB\.UTF-8)/\1/" /etc/locale.gen
 locale-gen
 echo "LANG=en_GB.UTF-8" >/etc/locale.conf
 cat >/etc/vconsole.conf <<EOF2

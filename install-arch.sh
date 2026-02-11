@@ -40,6 +40,22 @@ mount /dev/mapper/root /mnt
 mount --mkdir /dev/sda1 /mnt/boot
 
 PARTUUID="$(lsblk -no PARTUUID /dev/sda2)"
+CPU_VENDOR="$(awk -F: '/vendor_id/{gsub(/^[[:space:]]+/, "", $2); print $2; exit}' /proc/cpuinfo)"
+
+case "$CPU_VENDOR" in
+  GenuineIntel)
+    MICROCODE_PKG="intel-ucode"
+    MICROCODE_INITRD="/intel-ucode.img"
+    ;;
+  AuthenticAMD)
+    MICROCODE_PKG="amd-ucode"
+    MICROCODE_INITRD="/amd-ucode.img"
+    ;;
+  *)
+    echo "Unsupported CPU vendor: $CPU_VENDOR" >&2
+    exit 1
+    ;;
+esac
 
 # 2.1 Select the mirrors
 info "Selecting mirrors..."
@@ -50,7 +66,7 @@ reflector --country "United Kingdom" --protocol https --sort rate \
 info "Installing essential packages..."
 sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
   /etc/pacman.conf
-pacstrap -KP /mnt base linux linux-lts linux-firmware amd-ucode intel-ucode \
+pacstrap -KP /mnt base linux linux-lts linux-firmware "$MICROCODE_PKG" \
   efibootmgr sudo man-db man-pages iwd terminus-font zram-generator vi
 
 # 3.1 Fstab
@@ -113,7 +129,7 @@ EOF2
 cat >/boot/loader/entries/arch-linux.conf <<EOF2
 title Arch Linux
 linux /vmlinuz-linux
-initrd /intel-ucode.img
+initrd $MICROCODE_INITRD
 initrd /initramfs-linux.img
 options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
 EOF2
@@ -121,7 +137,7 @@ EOF2
 cat >/boot/loader/entries/arch-linux-fallback.conf <<EOF2
 title Arch Linux (fallback)
 linux /vmlinuz-linux
-initrd /intel-ucode.img
+initrd $MICROCODE_INITRD
 initrd /initramfs-linux-fallback.img
 options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
 EOF2
@@ -129,7 +145,7 @@ EOF2
 cat >/boot/loader/entries/arch-linux-lts.conf <<EOF2
 title Arch Linux LTS
 linux /vmlinuz-linux-lts
-initrd /intel-ucode.img
+initrd $MICROCODE_INITRD
 initrd /initramfs-linux-lts.img
 options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
 EOF2
@@ -137,7 +153,7 @@ EOF2
 cat >/boot/loader/entries/arch-linux-lts-fallback.conf <<EOF2
 title Arch Linux LTS (fallback)
 linux /vmlinuz-linux-lts
-initrd /intel-ucode.img
+initrd $MICROCODE_INITRD
 initrd /initramfs-linux-lts-fallback.img
 options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
 EOF2

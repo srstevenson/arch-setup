@@ -15,47 +15,50 @@ if [[ "$EUID" -ne 0 ]]; then
   exit 77 # EX_NOPERM
 fi
 
+pacman_syu() {
+  pacman -Syu --noconfirm --needed "$@"
+}
+
 info "Configuring pacman..."
 sed -Ei -e "s/^#(Color)/\1/" -e "s/^#(ParallelDownloads)/\1/" /etc/pacman.conf
 
 info "Selecting mirrors..."
-pacman -Syu --noconfirm --needed reflector
+pacman_syu reflector
 reflector --country "United Kingdom" --protocol https --sort rate \
   --save /etc/pacman.d/mirrorlist
 
 info "Installing ufw..."
-pacman -Syu --noconfirm --needed ufw
+pacman_syu ufw
 ufw default deny
 ufw limit ssh
 ufw --force enable
 systemctl enable --now ufw
 
 info "Installing man pages..."
-pacman -Syu --noconfirm --needed man-db man-pages
+pacman_syu man-db man-pages
 
 info "Setting login shell..."
-pacman -Syu --noconfirm --needed fish
+pacman_syu fish
 chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
-pacman -Syu --noconfirm --needed age difftastic fd fzy git helix jujutsu \
-  neovim ripgrep starship tmux
+pacman_syu age difftastic fd fzy git helix jujutsu neovim ripgrep starship tmux
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing TOML tools..."
-pacman -Syu --noconfirm --needed taplo-cli
+pacman_syu taplo-cli
 
 info "Installing YAML tools..."
-pacman -Syu --noconfirm --needed prettier
+pacman_syu prettier
 
 info "Installing shell development tools..."
-pacman -Syu --noconfirm --needed bash-language-server shellcheck shfmt
+pacman_syu bash-language-server shellcheck shfmt
 
 info "Installing Python development tools..."
-pacman -Syu --noconfirm --needed pyright ruff
+pacman_syu pyright ruff
 
 info "Installing Rust development tools..."
-pacman -Syu --noconfirm --needed rustup
+pacman_syu rustup
 if [[ ! -d /home/scott/.rustup ]]; then
   sudo -u scott rustup default stable
   sudo -u scott rustup component add rust-analyzer

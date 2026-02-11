@@ -186,7 +186,11 @@ useradd -G wheel -m scott
 echo "scott:$PASSPHRASE" | chpasswd
 
 info "Granting sudo access to wheel group..."
-sed -i "s/^# \(%wheel ALL=(ALL:ALL) ALL\)$/\1/" /etc/sudoers
+cat >/etc/sudoers.d/wheel <<EOF2
+%wheel ALL=(ALL:ALL) ALL
+EOF2
+chmod 440 /etc/sudoers.d/wheel
+visudo -cf /etc/sudoers
 EOF
 
 arch-chroot /mnt /bin/bash /install-arch-chroot.sh

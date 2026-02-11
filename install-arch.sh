@@ -73,8 +73,7 @@ reflector --country "United Kingdom" --protocol https --sort rate \
 
 # 2.2 Install essential packages
 info "Installing essential packages..."
-sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
-  /etc/pacman.conf
+sed -Ei -e "s/^#(Color)/\1/" -e "s/^#(ParallelDownloads)/\1/" /etc/pacman.conf
 pacstrap -KP /mnt base linux linux-lts linux-firmware "$MICROCODE_PKG" \
   efibootmgr sudo man-db man-pages iwd terminus-font zram-generator vi
 

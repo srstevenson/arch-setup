@@ -16,8 +16,7 @@ if [[ "$EUID" -ne 0 ]]; then
 fi
 
 info "Configuring pacman..."
-sed -i -e "s/^#Color/Color/" -e "s/^#ParallelDownloads/ParallelDownloads/" \
-  /etc/pacman.conf
+sed -Ei -e "s/^#(Color)/\1/" -e "s/^#(ParallelDownloads)/\1/" /etc/pacman.conf
 
 info "Selecting mirrors..."
 pacman -Syu --noconfirm --needed reflector

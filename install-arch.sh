@@ -82,6 +82,9 @@ pacstrap -KP /mnt base linux linux-lts linux-firmware "$MICROCODE_PKG" \
 info "Generating fstab..."
 genfstab -U /mnt >>/mnt/etc/fstab
 
+info "Verifying fstab..."
+findmnt --verify --tab-file /mnt/etc/fstab
+
 # 3.2 Chroot
 info "Configuring system in chroot..."
 cat >/mnt/install-arch-chroot.sh <<EOF

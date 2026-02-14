@@ -49,7 +49,7 @@ mount /dev/mapper/root /mnt
 mount --mkdir "$EFI_PART" /mnt/boot
 
 PARTUUID="$(lsblk -no PARTUUID "$ROOT_PART")"
-CPU_VENDOR="$(awk -F: '/vendor_id/{gsub(/^[[:space:]]+/, "", $2); print $2; exit}' /proc/cpuinfo)"
+CPU_VENDOR="$(grep -m1 '^vendor_id' /proc/cpuinfo | cut -d: -f2 | tr -d '[:space:]')"
 
 case "$CPU_VENDOR" in
   GenuineIntel)

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# To set the keyboard layout and console font, and connect to the network:
+# To set the keyboard layout, console font, and connect to the network:
 #
 #    loadkeys colemak
 #    setfont ter-124b

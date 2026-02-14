@@ -74,7 +74,7 @@ reflector --country "United Kingdom" --protocol https --sort rate \
 # 2.2 Install essential packages
 info "Installing essential packages..."
 sed -Ei -e "s/^#(Color)/\1/" -e "s/^#(ParallelDownloads)/\1/" /etc/pacman.conf
-pacstrap -KP /mnt base linux linux-lts linux-firmware "$MICROCODE_PKG" \
+pacstrap -KP /mnt base linux linux-firmware "$MICROCODE_PKG" \
   efibootmgr sudo man-db man-pages iwd terminus-font zram-generator vi
 
 # 3.1 Fstab
@@ -142,30 +142,6 @@ title Arch Linux
 linux /vmlinuz-linux
 initrd $MICROCODE_INITRD
 initrd /initramfs-linux.img
-options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
-EOF2
-
-cat >/boot/loader/entries/arch-linux-fallback.conf <<EOF2
-title Arch Linux (fallback)
-linux /vmlinuz-linux
-initrd $MICROCODE_INITRD
-initrd /initramfs-linux-fallback.img
-options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
-EOF2
-
-cat >/boot/loader/entries/arch-linux-lts.conf <<EOF2
-title Arch Linux LTS
-linux /vmlinuz-linux-lts
-initrd $MICROCODE_INITRD
-initrd /initramfs-linux-lts.img
-options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
-EOF2
-
-cat >/boot/loader/entries/arch-linux-lts-fallback.conf <<EOF2
-title Arch Linux LTS (fallback)
-linux /vmlinuz-linux-lts
-initrd $MICROCODE_INITRD
-initrd /initramfs-linux-lts-fallback.img
 options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
 EOF2
 

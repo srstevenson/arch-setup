@@ -48,7 +48,7 @@ info "Mounting file systems..."
 mount /dev/mapper/root /mnt
 mount --mkdir "$EFI_PART" /mnt/boot
 
-PARTUUID="$(lsblk -no PARTUUID "$ROOT_PART")"
+LUKS_UUID="$(cryptsetup luksUUID "$ROOT_PART")"
 CPU_VENDOR="$(grep -m1 '^vendor_id' /proc/cpuinfo | cut -d: -f2 | tr -d '[:space:]')"
 
 case "$CPU_VENDOR" in
@@ -123,8 +123,7 @@ systemctl enable systemd-resolved
 info "Generating initramfs..."
 sed -i  \
   -e "s/^MODULES=()/MODULES=(usbhid xhci_hcd)/" \
-  -e "/^HOOKS=/s/systemd/udev/" \
-  -e "/^HOOKS=/s/filesystems/encrypt filesystems/" /etc/mkinitcpio.conf
+  -e "/^HOOKS=/s/filesystems/sd-encrypt filesystems/" /etc/mkinitcpio.conf
 mkinitcpio -P
 
 # 3.7 Root password
@@ -144,7 +143,7 @@ title Arch Linux
 linux /vmlinuz-linux
 initrd $MICROCODE_INITRD
 initrd /initramfs-linux.img
-options cryptdevice=PARTUUID=$PARTUUID:root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
+options rd.luks.name=$LUKS_UUID=root root=/dev/mapper/root zswap.enabled=0 rw rootfstype=ext4
 EOF2
 
 bootctl install

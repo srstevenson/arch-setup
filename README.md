@@ -3,14 +3,19 @@
 This repository provides scripts for installing and setting up Arch Linux
 systems.
 
-## Scripts
+## Installation
 
-The following scripts are provided and should be run in the order listed.
+Run `install-arch.sh` from an installation image. This performs an automated
+installation with an encrypted ext4 root partition, systemd-boot as the
+bootloader, periodic file system TRIM, and swap on zram.
 
-- `install-arch.sh` performs an automated installation of Arch Linux with an
-  encrypted ext4 root partition, systemd-boot as the bootloader, periodic file
-  system TRIM, and swap on zram.
-- `setup-arch.sh` configures an installed system, such as one installed with
-  `install-arch.sh`, for development use. It configures pacman and installs ufw
-  to manage the netfilter firewall, and installs development tools including
-  editors, compilers, formatters, and linters.
+## Setup
+
+After rebooting into the newly installed system, run the `setup-*.sh` scripts
+that match the system's role:
+
+- `setup-base.sh` configures pacman and selects local HTTPS mirrors.
+- `setup-sshd.sh` enables the OpenSSH daemon and configures ufw to deny inbound
+  traffic other than SSH.
+- `setup-dev.sh` installs development tools, including editors, version control
+  tooling, language servers, formatters, and linters.

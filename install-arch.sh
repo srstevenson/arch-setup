@@ -75,7 +75,7 @@ reflector --country "United Kingdom" --protocol https --sort rate \
 info "Installing essential packages..."
 sed -Ei -e "s/^#(Color)/\1/" -e "s/^#(ParallelDownloads)/\1/" /etc/pacman.conf
 pacstrap -KP /mnt base linux linux-firmware "$MICROCODE_PKG" \
-  efibootmgr sudo man-db man-pages iwd terminus-font zram-generator vi
+  efibootmgr sudo man-db man-pages iwd terminus-font zram-generator
 
 # 3.1 Fstab
 info "Generating fstab..."

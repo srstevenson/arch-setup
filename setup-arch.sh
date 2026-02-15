@@ -42,7 +42,7 @@ pacman_syu fish
 chsh -s /usr/bin/fish scott
 
 info "Installing development tools..."
-pacman_syu age difftastic fd fzy git helix jujutsu neovim ripgrep starship tmux
+pacman_syu difftastic fd fzy git helix jujutsu neovim ripgrep starship tmux
 ln -fs /usr/bin/helix /usr/local/bin/hx
 
 info "Installing TOML tools..."
@@ -55,7 +55,7 @@ info "Installing shell development tools..."
 pacman_syu bash-language-server shellcheck shfmt
 
 info "Installing Python development tools..."
-pacman_syu pyright ruff
+pacman_syu ruff ty
 
 info "Installing Rust development tools..."
 pacman_syu rustup

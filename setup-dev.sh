@@ -3,7 +3,7 @@
 set -euo pipefail
 
 info() {
-  echo -e "\033[1;34m::\033[0m \033[1;37m$*\033[0m"
+  printf "\033[1;34m::\033[0m \033[1;37m%s\033[0m\n" "$*"
 }
 
 pacman_syu() {

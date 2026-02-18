@@ -11,7 +11,10 @@ pacman_syu() {
 }
 
 info "Configuring pacman..."
-sudo sed -Ei -e "s/^#(Color)/\1/" -e "s/^#(ParallelDownloads)/\1/" \
+sudo sed -Ei \
+  -e "s/^(NoProgressBar)/#\1/" \
+  -e "s/^#(Color)/\1/" \
+  -e "s/^#(ParallelDownloads)/\1/" \
   /etc/pacman.conf
 
 info "Selecting mirrors..."

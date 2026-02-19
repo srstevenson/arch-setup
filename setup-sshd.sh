@@ -16,6 +16,10 @@ systemctl_enable() {
 
 info "Enabling sshd..."
 pacman_syu openssh
+sudo tee /etc/ssh/sshd_config.d/30-hardening.conf >/dev/null <<EOF
+PasswordAuthentication no
+PermitRootLogin no
+EOF
 systemctl_enable sshd
 
 info "Installing ufw..."

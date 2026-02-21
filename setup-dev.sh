@@ -11,7 +11,7 @@ pacman_syu() {
 }
 
 info "Installing development tools..."
-pacman_syu chezmoi difftastic fd fzy git helix jujutsu neovim ripgrep \
+pacman_syu chezmoi difftastic fd fzy git helix jujutsu just neovim ripgrep \
   starship tmux typos-lsp
 sudo ln -fs /usr/bin/helix /usr/local/bin/hx
 

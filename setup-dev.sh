@@ -28,7 +28,7 @@ info "Installing Lua tools..."
 pacman_syu lua-language-server stylua
 
 info "Installing Python tools..."
-pacman_syu ruff ty
+pacman_syu ruff ty uv
 
 info "Installing Rust tools..."
 pacman_syu rustup

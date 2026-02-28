@@ -15,6 +15,9 @@ pacman_syu chezmoi difftastic fd fzy git helix jujutsu just just-lsp neovim \
   ripgrep starship tmux typos-lsp
 sudo ln -fs /usr/bin/helix /usr/local/bin/hx
 
+info "Installing JSON tools..."
+pacman_syu jq
+
 info "Installing TOML tools..."
 pacman_syu taplo-cli
 

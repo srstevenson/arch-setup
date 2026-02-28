@@ -1,9 +1,6 @@
-# list available recipes
+# show this help message (default)
 default:
     @just -l
-
-# format with shfmt and lint with shellcheck
-check: fmt lint
 
 # format with shfmt
 fmt:
